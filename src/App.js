@@ -5,7 +5,7 @@ import Body from "./components/Body";
 
 
 
-const App = () =>{
+const AppLayout = () =>{
     return(
         <div className="app">
          <Header/>
@@ -16,4 +16,4 @@ const App = () =>{
 
 
 const root=ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App/>);
+root.render(<AppLayout/>);
