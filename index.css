@@ -73,3 +73,6 @@
  .filter {
      display: flex;
  }
+ .search-btn{
+    cursor: pointer;
+ }
