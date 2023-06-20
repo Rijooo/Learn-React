@@ -1,6 +1,8 @@
-import ResCard from "./RestaurantCard";
+import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
+import { RESCARD_API } from "../utils/constants";
+import {Link} from "react-router-dom";
 
 const Body = () => {
   // Local State Variable - Super powerful variable
@@ -14,12 +16,11 @@ const Body = () => {
   }, []);
 
     const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(RESCARD_API);
     const json = await data.json();
     console.log(json);
    
+    if (listOfRestaurants === 0) return <Shimmer/>
     // Optional Chaining
     setListOfRestraunt(json?.data?.cards[2]?.data?.data?.cards);
     setSearchedRestaurant(json?.data?.cards[2]?.data?.data?.cards);
@@ -31,8 +32,7 @@ const Body = () => {
 //     return <Shimmer/>
 // }
 
-  return listOfRestaurants.length === 0 ? <Shimmer/> : 
-  (
+  return (
     <div className="body">
       <div className="filter">
         <div className="search">
@@ -61,8 +61,13 @@ const Body = () => {
           </button>
         </div>
         <div className="res-container">
-         {searchedRestaurant.map((restaurant) => (
-          <ResCard key={restaurant.data.id} resData={restaurant} />
+        {searchedRestaurant.map((restaurant) => (
+          <Link
+            key={restaurant.data.id}
+            to={"/restaurants/" + restaurant.data.id}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
