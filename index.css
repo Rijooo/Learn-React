@@ -76,3 +76,13 @@
  .search-btn{
     cursor: pointer;
  }
+ 
+ .user-card{
+    padding: 10px;
+    border: 2px solid black;
+
+ }
+ .res-name{
+    display: flex;
+    justify-content: center;
+ }
