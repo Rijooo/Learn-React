@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel}from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./shimmer";
 import { RESCARD_API } from "../utils/constants";
@@ -10,6 +10,8 @@ const Body = () => {
   const [listOfRestaurants, setListOfRestraunt] = useState([]);
   const [searchedRestaurant, setSearchedRestaurant] = useState([]);
   const [searchText, setsearchText] = useState("");
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard); 
 
   // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
     useEffect(() => {
@@ -36,14 +38,14 @@ return (
 )
 
   return (
-    <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input type="text" className="search-box" value={searchText}
+    <div className="body bg-slate-200">
+      <div className="filter flex">
+        <div className="search m-2 p-2">
+          <input type="text" className=" border border-solid border-black " value={searchText}
           onChange={ (e) => {
             setsearchText(e.target.value);
           }}  />
-          <button className="search-btn" 
+          <button className=" px-3 py-0.5 mx-3 bg-emerald-100 rounded-xl" 
           onClick={ () =>{
              const filteredRestaurant = listOfRestaurants.filter(
               (res) => res.data.name.toLowerCase().includes(searchText.toLowerCase()) 
@@ -51,8 +53,9 @@ return (
              setSearchedRestaurant(filteredRestaurant);
           }}>search</button>
        </div>
+       <div className="search m-2 p-2">
           <button
-          className="filter-btn"
+          className=" bg-emerald-100 px-3 py-0.5 rounded-xl"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
               (res) => res.data.avgRating > 4.5
@@ -63,13 +66,18 @@ return (
           Top Rated Restaurants
           </button>
         </div>
-        <div className="res-container">
+        </div>
+        <div className=" flex flex-wrap justify-center m-1 ">
         {searchedRestaurant.map((restaurant) => (
           <Link
             key={restaurant.data.id}
             to={"/restaurants/" + restaurant.data.id}
           >
-            <RestaurantCard resData={restaurant} />
+            {
+              restaurant.data.promoted ? (
+                <RestaurantCardPromoted resData={restaurant}/>
+              ) : (<RestaurantCard resData={restaurant} />)
+            }
           </Link>
         ))}
       </div>

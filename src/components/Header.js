@@ -8,32 +8,32 @@ const Header = () => {
      const onlineStatus = useOnlineStatus();
    
     return(
-        <div className="header">
+        <div className="flex justify-between bg-pink-200 shadow-md px-10">
           <div className="logo-container">
-            <img className="logo" src={LOGO_URL}/>
+            <img className=" w-44" src={LOGO_URL}/>
           </div>
-          <div className="res-name">
-            SWIGGY
+          <div className=" flex items-center">
+            SWIOTO
           </div>
-          <div className="nav-items">
-            <ul>
-              <li>Status: {
+          <div className="flex items-center ">
+            <ul className="flex p-5 m-10 ">
+              <li className=" px-3">Status: {
                    onlineStatus ? "online🟢" : "offline🔴" 
                 }</li>
-                <li>
+                <li className=" m-3 px-3 bg-pink-500 hover:bg-pink-700 align-middle">
                 <Link to="/">Home</Link>
                 </li>
-                <li>
+                <li className=" m-3 px-3   bg-pink-500 hover:bg-pink-700 active:bg-pink-500 ">
                   <Link to="/about">About</Link>
                 </li>
-                <li>
+                <li className="flex items-center w-80px] m-3 px-3 bg-pink-500 hover:bg-pink-700 ">
                 <Link to="/contact">Contact</Link>
                 </li>
-                <li>
+                <li className=" m-3 px-3  bg-pink-500 hover:bg-pink-700 ">
                   <Link to="/grocery">Grocery</Link>
                 </li>
-                <li>Cart</li>
-                <button className="login" onClick={ () => {
+                <li className=" m-3 px-3  bg-pink-500 hover:bg-pink-700 ">Cart</li>
+                <button className="login m-3 bg-pink-500 hover:bg-pink-700 px-3" onClick={ () => {
                   btnName === "login" 
                   ? setBtnName("Logout")   
                   : setBtnName("login");
